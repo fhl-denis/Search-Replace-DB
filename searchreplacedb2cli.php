@@ -112,6 +112,7 @@ echo "tables: ".$selected_tables."\n\n";
 
 /* Reproduce what's done in Case 3 to test the server before proceeding */
         $connection = @mysql_connect( $host, $user, $pass );
+        
         if ( ! $connection ) {
                 $errors[] = mysql_error( );
                 echo "MySQL Connection Error: ";
@@ -148,7 +149,9 @@ echo "tables: ".$selected_tables."\n\n";
  * @TODO allow selection of one or more tables. For now, use all.
  */
 $tables = $all_tables;
-
+if (isset($selected_tables)) {
+  $tables = explode(',', $selected_tables);
+}
 /* Execute Case 5 with the actual search + replace */
 
 if(!isset($options["dry-run"])){ // check if dry-run
