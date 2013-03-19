@@ -24,6 +24,7 @@ $shortopts .= "p:"; // password // $pass
 $shortopts .= "c:"; // character set // $char
 $shortopts .= "s:"; // search // $srch
 $shortopts .= "r:"; // replace // $rplc
+$shortopts .= "t:";
 $shortopts .= ""; // These options do not accept values
 
 // All long options require values
@@ -38,11 +39,14 @@ $longopts  = array(
     "help", // $help_text
     //@TODO write dry-run to also do a search without a replace.
     "dry-run", // engage in a dry run, print options, show results
+    "tables:"
 );
 
 /* Store arg values */
 $arg_count = $_SERVER["argc"];
 $args_array = $_SERVER["argv"];
+echo $arg_count;
+print_r($args_array);
 $options = getopt($shortopts, $longopts); // Store array of options and values
 // var_dump($options); // return all the values
 
@@ -87,6 +91,11 @@ if (isset($options["r"])){
 elseif(isset($options["replace"])){
   $rplc = $options["replace"];}
 
+if (isset($options["t"])){
+  $selected_tables = $options["t"];}
+elseif(isset($options["tables"])){
+  $selected_tables = $options["tables"];}
+
 /* Show values if this is a dry-run */
 if (isset($options["dry-run"])){
 echo "Are you sure these are correct?\n";
@@ -97,7 +106,8 @@ echo "user: ".$user."\n";
 echo "pass: ".$pass."\n";
 echo "charset: ".$char."\n";
 echo "search: ".$srch."\n";
-echo "replace: ".$rplc."\n\n";
+echo "replace: ".$rplc."\n";
+echo "tables: ".$selected_tables."\n\n";
 
 /* Reproduce what's done in Case 3 to test the server before proceeding */
         $connection = @mysql_connect( $host, $user, $pass );
