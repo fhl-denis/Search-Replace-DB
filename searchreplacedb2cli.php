@@ -108,7 +108,9 @@ echo "pass: ".$pass."\n";
 echo "charset: ".$char."\n";
 echo "search: ".$srch."\n";
 echo "replace: ".$rplc."\n";
-echo "tables: ".$selected_tables."\n\n";
+if (isset($selected_tables)) {
+  echo "tables: ".$selected_tables."\n\n";
+}
 
 /* Reproduce what's done in Case 3 to test the server before proceeding */
         $connection = @mysql_connect( $host, $user, $pass );
